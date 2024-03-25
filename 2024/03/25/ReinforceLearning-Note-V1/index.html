@@ -22,17 +22,20 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="Fellow your heart!">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Olives_Blog">
-<meta property="og:url" content="http://example.com/archives/2024/index.html">
+  <meta name="description" content="DeepReinforceLearning主要介绍深度强化学习中的DQn、梯度策略与AlphaGo及AlphaGo Zero">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ReinforceLearning_Note_V1">
+<meta property="og:url" content="http://example.com/2024/03/25/ReinforceLearning-Note-V1/index.html">
 <meta property="og:site_name" content="Olives_Blog">
-<meta property="og:description" content="Fellow your heart!">
+<meta property="og:description" content="DeepReinforceLearning主要介绍深度强化学习中的DQn、梯度策略与AlphaGo及AlphaGo Zero">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-03-25T08:31:25.000Z">
+<meta property="article:modified_time" content="2024-03-25T09:40:16.642Z">
 <meta property="article:author" content="XinzeXie">
+<meta property="article:tag" content="学习笔记">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/archives/2024/">
+<link rel="canonical" href="http://example.com/2024/03/25/ReinforceLearning-Note-V1/">
 
 
 <script id="page-configurations">
@@ -40,12 +43,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>归档 | Olives_Blog</title>
+  <title>ReinforceLearning_Note_V1 | Olives_Blog</title>
   
 
 
@@ -186,110 +189,141 @@
         <div class="content-wrap">
           
 
-          <div class="content archive">
+          <div class="content post posts-expand">
             
 
+    
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <span class="collection-header">嗯..! 目前共计 4 篇日志。 继续努力。</span>
-      </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/03/25/ReinforceLearning-Note-V1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="XinzeXie">
+      <meta itemprop="description" content="Fellow your heart!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Olives_Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          ReinforceLearning_Note_V1
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-03-25 16:31:25 / 修改时间：17:40:16" itemprop="dateCreated datePublished" datetime="2024-03-25T16:31:25+08:00">2024-03-25</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/LearningNote/" itemprop="url" rel="index"><span itemprop="name">LearningNote</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/LearningNote/RL/" itemprop="url" rel="index"><span itemprop="name">RL</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2024</span>
-    </div>
+        <h2 id="DeepReinforceLearning"><a href="#DeepReinforceLearning" class="headerlink" title="DeepReinforceLearning"></a>DeepReinforceLearning</h2><p>主要介绍深度强化学习中的DQn、梯度策略与AlphaGo及AlphaGo Zero</p>
+<span id="more"></span>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+<h3 id="DQN"><a href="#DQN" class="headerlink" title="DQN:"></a>DQN:</h3><pre><code>Use neural network 𝑄(𝑠,𝑎;𝐰) to approximate 𝑄⋆(𝑠,𝑎).to select the best/most valuable actiton in this state
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2024-03-25T16:34:58+08:00"
-              content="2024-03-25">
-          03-25
-        </time>
-      </div>
+Q-function to subscribe the value of action in the real world.
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2024/03/25/EveryoneIsTheProductManager-Note-V1/" itemprop="url">
-            <span itemprop="name">EveryoneIsTheProductManager_Note_V1</span>
-          </a>
-      </div>
+Temporal Difference (TD) Learning to make the action evaluation function Q become more accurate.
 
-    </header>
-  </article>
+    cause	𝑈t = 𝑅t + 𝛾⋅𝑈t+1 .
+    prediction 𝑄(𝑠t,𝑎t;𝐰t)
+    loss	Lt = 1/2*[𝑄(𝑠t,𝑎t;𝐰t) - yt]^2
+    Gradient descent wt+1 = wt - alpha*(dLt / dw)|w=wt
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+    DQN : off-policy like the &quot;behavior cloning&quot; thinking
+</code></pre>
+<h3 id="Policy-Gradient"><a href="#Policy-Gradient" class="headerlink" title="Policy Gradient:"></a>Policy Gradient:</h3><pre><code>Neural network to approximate Value and Policy, make the value evaluation function more accurancy and the policy preform better.
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2024-03-25T16:31:25+08:00"
-              content="2024-03-25">
-          03-25
-        </time>
-      </div>
+    𝑉(𝑠) =∑𝑎 𝜋(𝑎,𝑠)⋅𝑄𝜋(𝑠,𝑎) . contain: actor &amp; critic
+    
+    𝜋(𝑎,𝑠;𝛉) -&gt; 𝜋(𝑎,𝑠); 𝑞(𝑠,𝑎;𝐰) -&gt; 𝑞(𝑠,𝑎)
+    
+    𝑉(𝑠;𝛉,𝐰) = ∑𝑎 𝜋(𝑎,𝑠;𝛉)𝑞(𝑠,𝑎;𝐰)
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2024/03/25/ReinforceLearning-Note-V1/" itemprop="url">
-            <span itemprop="name">ReinforceLearning_Note_V1</span>
-          </a>
-      </div>
+    𝐠(𝑎,𝛉) = [dlog𝜋(𝑎,𝑠;𝛉)/d𝛉]•𝑞(𝑠,𝑎;𝐰)
 
-    </header>
-  </article>
+    d𝑉(𝑠;𝛉,𝐰)/d𝛉 =𝔼𝐴[𝐠(𝐴,𝛉)] &#123;cause 𝜋 is probability density function&#125;
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+    as for the critic use the TD to update 𝐰
+</code></pre>
+<h3 id="AlphaGo（MCTS）"><a href="#AlphaGo（MCTS）" class="headerlink" title="AlphaGo（MCTS）"></a>AlphaGo（MCTS）</h3><pre><code>For the Monte Carlo Tree Search trained AlphaGO Zero, it has 4 steps:
+    1. Selection: The player makes an action 𝑎. (Imaginary action; not actual move.)
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2024-03-25T14:53:27+08:00"
-              content="2024-03-25">
-          03-25
-        </time>
-      </div>
+    2. Expansion: The opponent makes an action; the state updates. (Also imaginary action; made by the policy network.)
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2024/03/25/crawler-form-weibo/" itemprop="url">
-            <span itemprop="name">CrawlerOnWeibo</span>
-          </a>
-      </div>
+    3. Evaluation: Evaluate the state-value and get score 𝑣. Play the game to the end to receive reward 𝑟. Assign score (𝑣+𝑟)/2
 
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2024-02-22T16:35:39+08:00"
-              content="2024-02-22">
-          02-22
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2024/02/22/hello-world/" itemprop="url">
-            <span itemprop="name">Hello World</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
+    4. Backup: Use the score (𝑣+𝑟)/2 to action 𝑎. to update action-values.
+</code></pre>
 
     </div>
-  </div>
-  
-  
-  
 
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="tag"># 学习笔记</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/03/25/crawler-form-weibo/" rel="prev" title="CrawlerOnWeibo">
+      <i class="fa fa-chevron-left"></i> CrawlerOnWeibo
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2024/03/25/EveryoneIsTheProductManager-Note-V1/" rel="next" title="EveryoneIsTheProductManager_Note_V1">
+      EveryoneIsTheProductManager_Note_V1 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
   
 
 
@@ -342,6 +376,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#DeepReinforceLearning"><span class="nav-number">1.</span> <span class="nav-text">DeepReinforceLearning</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DQN"><span class="nav-number">1.1.</span> <span class="nav-text">DQN:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Policy-Gradient"><span class="nav-number">1.2.</span> <span class="nav-text">Policy Gradient:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AlphaGo%EF%BC%88MCTS%EF%BC%89"><span class="nav-number">1.3.</span> <span class="nav-text">AlphaGo（MCTS）</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
