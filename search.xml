@@ -39,6 +39,17 @@
       </tags>
   </entry>
   <entry>
+    <title>IE_Race</title>
+    <url>/2024/03/26/IE-Race/</url>
+    <content><![CDATA[<h2 id="项目原理"><a href="#项目原理" class="headerlink" title="项目原理"></a>项目原理</h2><pre><code>基于融合学习，进行游戏公司玩家流失量预测
+</code></pre>
+<span id="more"></span>
+<h3 id="技术方案计划书"><a href="#技术方案计划书" class="headerlink" title="技术方案计划书"></a>技术方案计划书</h3><iframe src="/images/Project/IE-Race/基于投票的集成学习模型_10-8.pdf">]]></content>
+      <tags>
+        <tag>项目实践</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>ReinforceLearning_Note_V1</title>
     <url>/2024/03/25/ReinforceLearning-Note-V1/</url>
     <content><![CDATA[<h2 id="DeepReinforceLearning"><a href="#DeepReinforceLearning" class="headerlink" title="DeepReinforceLearning"></a>DeepReinforceLearning</h2><p>主要介绍深度强化学习中的DQn、梯度策略与AlphaGo及AlphaGo Zero</p>
