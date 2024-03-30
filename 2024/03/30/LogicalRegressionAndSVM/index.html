@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="项目背景：完成实验课逻辑回归与支持向量机的机器学习实现Based on: Python 3.9, pytorch in conda">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LogicalRegressionAndSVM">
+<meta property="og:url" content="http://example.com/2024/03/30/LogicalRegressionAndSVM/index.html">
+<meta property="og:site_name" content="Olives_Blog">
+<meta property="og:description" content="项目背景：完成实验课逻辑回归与支持向量机的机器学习实现Based on: Python 3.9, pytorch in conda">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-03-30T01:50:46.000Z">
+<meta property="article:modified_time" content="2024-03-30T02:07:38.598Z">
+<meta property="article:author" content="XinzeXie">
+<meta property="article:tag" content="项目实践">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2024/03/30/LogicalRegressionAndSVM/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>LogicalRegressionAndSVM | Olives_Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Olives_Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/03/30/LogicalRegressionAndSVM/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="XinzeXie">
+      <meta itemprop="description" content="Fellow your heart!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Olives_Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          LogicalRegressionAndSVM
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-03-30 09:50:46 / 修改时间：10:07:38" itemprop="dateCreated datePublished" datetime="2024-03-30T09:50:46+08:00">2024-03-30</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Project/" itemprop="url" rel="index"><span itemprop="name">Project</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Project/ML/" itemprop="url" rel="index"><span itemprop="name">ML</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><strong>项目背景：</strong>完成实验课逻辑回归与支持向量机的机器学习实现<br><strong>Based on:</strong> Python 3.9, pytorch in conda</p>
+<hr>
+<span id="more"></span>
+
+<h2 id="Quite-Start"><a href="#Quite-Start" class="headerlink" title="Quite Start"></a>Quite Start</h2><hr>
+<h3 id="Main-class"><a href="#Main-class" class="headerlink" title="Main class"></a>Main class</h3><pre><code>使用一个类封装，十分简单的实现原理，参考背后数学推导即可完成最核心的loss部分，通过初始化类时设定不同的初始权重设置方式，不同的损失函数方式等，模式不同体现在train()中
+
+另：Adam优化器暂时没有写，有待后续更新
+</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br></pre></td><td class="code"><pre><span class="line"># Finished Date: 2024/03/29 10:00 - 2024/03/30 00:14</span><br><span class="line"># Author: Olives</span><br><span class="line"># Position: in SCUT</span><br><span class="line"># Environment: pytorch, python3.9</span><br><span class="line"># Do the thing better</span><br><span class="line"></span><br><span class="line">import random</span><br><span class="line">import numpy as np</span><br><span class="line">import sklearn.datasets as sd</span><br><span class="line">import matplotlib.pyplot as plt</span><br><span class="line">import plotly.graph_objects as go</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># Activation function to strengthen the non-linear ability, use sigmoid function</span><br><span class="line">def sigmoid(x: object) -&gt; object:</span><br><span class="line">    temp = 1 / (1 + np.exp(-x))</span><br><span class="line">    return temp</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># Define a class and encapsulate all the entire functions, which makes it easier to modify</span><br><span class="line">class LogicalRegressionAndSVM:</span><br><span class="line">    def __init__(self, path_train, path_test, learning_rate=0.002, episodes=100, loss_mode=0,</span><br><span class="line">                omega_init_mode=0, mini_batch=40, regularization=0.5, optimize_mode=&#x27;SGD&#x27;):</span><br><span class="line">        self.learning_rate = learning_rate</span><br><span class="line">        self.episodes = episodes</span><br><span class="line">        self.loss_mode = loss_mode</span><br><span class="line">        self.path_train = path_train</span><br><span class="line">        self.path_test = path_test</span><br><span class="line">        self.X_train = np.empty((1, 1))</span><br><span class="line">        self.X_test = np.empty((1, 1))</span><br><span class="line">        self.y_train = np.empty((1, 1))</span><br><span class="line">        self.y_test = np.empty((1, 1))</span><br><span class="line">        self.omega = np.empty((1, 1))</span><br><span class="line">        self.train_loss = []</span><br><span class="line">        self.test_loss = []</span><br><span class="line">        self.omega_init_mode = omega_init_mode</span><br><span class="line">        self.opt_omega = np.empty((1, 1))</span><br><span class="line">        self.mini_batch = mini_batch</span><br><span class="line">        self.regularization = regularization</span><br><span class="line">        self.b = np.empty((1, 1))</span><br><span class="line">        self.optimize_mode = optimize_mode</span><br><span class="line"></span><br><span class="line">    # read data from file don&#x27;t need other operate for data</span><br><span class="line">    def read(self):</span><br><span class="line">        X_train, y_train = sd.load_svmlight_file(self.path_train, n_features=123)</span><br><span class="line">        X_valid, y_valid = sd.load_svmlight_file(self.path_test, n_features=123)</span><br><span class="line"></span><br><span class="line">        # transform to ndarray</span><br><span class="line">        X_train = X_train.toarray()</span><br><span class="line">        X_valid = X_valid.toarray()</span><br><span class="line">        # transform to column vector</span><br><span class="line">        y_train = y_train.reshape(len(y_train), 1)</span><br><span class="line">        y_valid = y_valid.reshape(len(y_valid), 1)</span><br><span class="line"></span><br><span class="line">        # add one column values is 1, in my point, this is the bias part, course I the train part of bias, so delete</span><br><span class="line"></span><br><span class="line">        # X_train = np.concatenate((np.ones((X_train.shape[0], 1)), X_train), axis=1)</span><br><span class="line">        # X_valid = np.concatenate((np.ones((X_valid.shape[0], 1)), X_valid), axis=1)</span><br><span class="line">        X_train = np.nan_to_num(X_train)</span><br><span class="line">        X_valid = np.nan_to_num(X_valid)</span><br><span class="line">        self.X_train = X_train</span><br><span class="line">        self.X_test = X_valid</span><br><span class="line">        self.y_train = y_train</span><br><span class="line">        self.y_test = y_valid</span><br><span class="line"></span><br><span class="line">    # get the classification result score</span><br><span class="line">    def score(self):</span><br><span class="line">        hx = sigmoid(self.X_test.dot(self.opt_omega))</span><br><span class="line">        hx[hx &gt;= 0.5] = 1</span><br><span class="line">        hx[hx &lt; 0.5] = -1</span><br><span class="line">        hx = (hx == self.y_test)</span><br><span class="line">        return np.mean(hx)</span><br><span class="line"></span><br><span class="line">    # calculate the gradient of logistic regression</span><br><span class="line">    def logistic_gradient(self, X, y):</span><br><span class="line">        sigmoid_x = sigmoid(X.dot(self.omega))</span><br><span class="line">        loss = X.T.dot(sigmoid_x - y)</span><br><span class="line">        return loss</span><br><span class="line"></span><br><span class="line">    # calculate the loss of logistic regression</span><br><span class="line">    def logistic_loss(self, X, y):</span><br><span class="line">        sigmoid_x = sigmoid(X.dot(self.omega))</span><br><span class="line">        cost = np.multiply((1 + y), np.log(1 + sigmoid_x)) + np.multiply((1 - y), np.log(1 - sigmoid_x))</span><br><span class="line">        return -cost.mean() / 2</span><br><span class="line"></span><br><span class="line">    # calculate the loss of hinge</span><br><span class="line">    def hinge_loss(self, X, y):</span><br><span class="line">        loss = np.maximum(0, 1 - np.multiply(y, (X.dot(self.omega)) + self.b.T)).mean()</span><br><span class="line">        reg = np.multiply(self.omega, self.omega).sum() / 2</span><br><span class="line">        temp = self.regularization * loss + reg</span><br><span class="line">        return temp</span><br><span class="line"></span><br><span class="line">    # calculate the gradient of hinge(includes omega and b)</span><br><span class="line">    def hinge_gradient(self, X, y):</span><br><span class="line">        error = np.maximum(0, 1 - np.multiply(y, X.dot(self.omega)))</span><br><span class="line">        index = np.where(error == 0)</span><br><span class="line">        x = X.copy()</span><br><span class="line">        x[index, :] = 0</span><br><span class="line">        gw = -y.T.dot(x)</span><br><span class="line">        gb = -y</span><br><span class="line">        grad_omega = self.omega + self.regularization * gw.mean()</span><br><span class="line">        grad_b = self.regularization * gb.mean()</span><br><span class="line">        return grad_omega, grad_b</span><br><span class="line"></span><br><span class="line">    # train and test the model</span><br><span class="line">    def train(self):</span><br><span class="line">        # depends on the omega init mode to choose different init mode, like random or zeros</span><br><span class="line">        if self.omega_init_mode:</span><br><span class="line">            self.omega = np.random.random((self.X_train.shape[1], 1))</span><br><span class="line">        else:</span><br><span class="line">            self.omega = np.zeros((self.X_train.shape[1], 1))</span><br><span class="line"></span><br><span class="line">        # the init b can change its way of init, but don&#x27;t have much meaning</span><br><span class="line">        self.b = np.random.random((self.X_train.shape[1], 1))</span><br><span class="line">        train_data = np.concatenate((self.y_train, self.X_train), axis=1)</span><br><span class="line"></span><br><span class="line">        # different loss mode decides logical regression or support vector machine and different optimize mode</span><br><span class="line">        if self.optimize_mode == &quot;SGD&quot;:</span><br><span class="line">            if self.loss_mode:</span><br><span class="line">                for episode in range(self.episodes):</span><br><span class="line">                    train_sample = np.matrix(random.sample(train_data.tolist(), self.mini_batch))</span><br><span class="line">                    grad = self.logistic_gradient(train_sample[:, 1:125], train_sample[:, 0])</span><br><span class="line">                    self.omega = self.omega - (self.learning_rate * grad)</span><br><span class="line">                    self.train_loss.append(self.logistic_loss(self.X_train, self.y_train))</span><br><span class="line">                    self.test_loss.append(self.logistic_loss(self.X_test, self.y_test))</span><br><span class="line">                self.opt_omega = self.omega</span><br><span class="line">            else:</span><br><span class="line">                for episode in range(self.episodes):</span><br><span class="line">                    train_sample = np.matrix(random.sample(train_data.tolist(), self.mini_batch))</span><br><span class="line">                    grad_omega, grad_b = self.hinge_gradient(train_sample[:, 1:125], train_sample[:, 0])</span><br><span class="line">                    self.omega = self.omega - (self.learning_rate * grad_omega)</span><br><span class="line">                    self.b = self.b - (self.learning_rate * grad_b)</span><br><span class="line">                    self.train_loss.append(self.hinge_loss(self.X_train, self.y_train))</span><br><span class="line">                    self.test_loss.append(self.hinge_loss(self.X_test, self.y_test))</span><br><span class="line">                self.opt_omega = self.omega</span><br><span class="line">        else:</span><br><span class="line">            pass</span><br><span class="line"></span><br><span class="line">    # plotly draw the loss of each episode</span><br><span class="line">    def plotly_graph(self):</span><br><span class="line">        episodes_list = list(range(self.episodes))</span><br><span class="line">        fig = go.Figure()</span><br><span class="line">        fig.add_trace(go.Scatter(x=episodes_list, y=self.train_loss, name=&quot;train_loss&quot;,</span><br><span class="line">                                line=dict(color=&#x27;firebrick&#x27;, width=4)))</span><br><span class="line">        fig.add_trace(go.Scatter(x=episodes_list, y=self.test_loss, name=&quot;test_loss&quot;,</span><br><span class="line">                                line=dict(color=&#x27;royalblue&#x27;, width=4)))</span><br><span class="line"></span><br><span class="line">        fig.update_layout(title=&#x27;The train and test data loss in different episodes&#x27;,</span><br><span class="line">                        xaxis_title=&#x27;Episodes&#x27;,</span><br><span class="line">                        yaxis_title=&#x27;Loss&#x27;)</span><br><span class="line"></span><br><span class="line">        fig.show()</span><br><span class="line"></span><br><span class="line">    # plot draw the loss of each episode</span><br><span class="line">    def plot_graph(self):</span><br><span class="line">        iteration = np.arange(0, self.episodes, step=1)</span><br><span class="line">        fig, ax = plt.subplots(figsize=(12, 8))</span><br><span class="line">        ax.set_title(&#x27;Train&#x27;)</span><br><span class="line">        ax.set_xlabel(&#x27;iteration&#x27;)</span><br><span class="line">        ax.set_ylabel(&#x27;loss&#x27;)</span><br><span class="line">        plt.plot(iteration, self.train_loss, &#x27;b&#x27;, label=&#x27;Train&#x27;)</span><br><span class="line">        plt.plot(iteration, self.test_loss, &#x27;r&#x27;, label=&#x27;Test&#x27;)</span><br><span class="line">        plt.legend()</span><br><span class="line">        plt.show()</span><br><span class="line"></span><br><span class="line">    # the run function</span><br><span class="line">    def run(self):</span><br><span class="line">        self.read()</span><br><span class="line">        self.train()</span><br><span class="line">        # self.plotly_graph()</span><br><span class="line">        self.plot_graph()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    # logical regression to get the result</span><br><span class="line">    logical = LogicalRegressionAndSVM(path_train=&#x27;./a9a.txt&#x27;, path_test=&#x27;./a9a.t.txt&#x27;, learning_rate=0.001,</span><br><span class="line">                                    episodes=200, loss_mode=1, omega_init_mode=1, mini_batch=70)</span><br><span class="line">    logical.run()</span><br><span class="line">    print(&quot;Logical Regression Over!\n&quot;)</span><br><span class="line">    print(logical.score())</span><br><span class="line"></span><br><span class="line">    # svm to get the result</span><br><span class="line">    svm = LogicalRegressionAndSVM(path_train=&#x27;./a9a.txt&#x27;, path_test=&#x27;./a9a.t.txt&#x27;, learning_rate=0.003, episodes=200,</span><br><span class="line">                                loss_mode=0, omega_init_mode=1, mini_batch=70)</span><br><span class="line">    svm.run()</span><br><span class="line">    print(&quot;SVM Over!&quot;)</span><br><span class="line">    print(svm.score())</span><br><span class="line"></span><br><span class="line">    # To use Adam to optimise</span><br><span class="line">    # svm = LogicalRegressionAndSVM(path_train=&#x27;./a9a.txt&#x27;, path_test=&#x27;./a9a.t.txt&#x27;, learning_rate=0.003, episodes=100,</span><br><span class="line">    #                               loss_mode=0, omega_init_mode=1, mini_batch=70, optimize_mode=&quot;Adam&quot;)</span><br></pre></td></tr></table></figure>
+
+<h2 id="Look-back"><a href="#Look-back" class="headerlink" title="Look back"></a>Look back</h2><pre><code>没什么特别难的部分，注意数学推导使用矩阵计算方法即可，careful还有主要的loss function.
+</code></pre>
+<h3 id="loss-function"><a href="#loss-function" class="headerlink" title="loss function"></a>loss function</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"># calculate the gradient of logistic regression</span><br><span class="line">def logistic_gradient(self, X, y):</span><br><span class="line">    sigmoid_x = sigmoid(X.dot(self.omega))</span><br><span class="line">    loss = X.T.dot(sigmoid_x - y)</span><br><span class="line">    return loss</span><br><span class="line"></span><br><span class="line"># calculate the loss of logistic regression</span><br><span class="line">def logistic_loss(self, X, y):</span><br><span class="line">    sigmoid_x = sigmoid(X.dot(self.omega))</span><br><span class="line">    cost = np.multiply((1 + y), np.log(1 + sigmoid_x)) + np.multiply((1 - y), np.log(1 - sigmoid_x))</span><br><span class="line">    return -cost.mean() / 2</span><br><span class="line"></span><br><span class="line"># calculate the loss of hinge</span><br><span class="line">def hinge_loss(self, X, y):</span><br><span class="line">    loss = np.maximum(0, 1 - np.multiply(y, (X.dot(self.omega)) + self.b.T)).mean()</span><br><span class="line">    reg = np.multiply(self.omega, self.omega).sum() / 2</span><br><span class="line">    temp = self.regularization * loss + reg</span><br><span class="line">    return temp</span><br><span class="line"></span><br><span class="line"># calculate the gradient of hinge(includes omega and b)</span><br><span class="line">def hinge_gradient(self, X, y):</span><br><span class="line">    error = np.maximum(0, 1 - np.multiply(y, X.dot(self.omega)))</span><br><span class="line">    index = np.where(error == 0)</span><br><span class="line">    x = X.copy()</span><br><span class="line">    x[index, :] = 0</span><br><span class="line">    gw = -y.T.dot(x)</span><br><span class="line">    gb = -y</span><br><span class="line">    grad_omega = self.omega + self.regularization * gw.mean()</span><br><span class="line">    grad_b = self.regularization * gb.mean()</span><br><span class="line">    return grad_omega, grad_b</span><br></pre></td></tr></table></figure>
+
+<h2 id="By-the-way"><a href="#By-the-way" class="headerlink" title="By the way"></a>By the way</h2><pre><code>画图可使用 plot/plotly, plotly网页交互体验比较好
+</code></pre>
+<h3 id="Draw-things"><a href="#Draw-things" class="headerlink" title="Draw things"></a>Draw things</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"># plotly draw the loss of each episode</span><br><span class="line">def plotly_graph(self):</span><br><span class="line">    episodes_list = list(range(self.episodes))</span><br><span class="line">    fig = go.Figure()</span><br><span class="line">    fig.add_trace(go.Scatter(x=episodes_list, y=self.train_loss, name=&quot;train_loss&quot;,</span><br><span class="line">                            line=dict(color=&#x27;firebrick&#x27;, width=4)))</span><br><span class="line">    fig.add_trace(go.Scatter(x=episodes_list, y=self.test_loss, name=&quot;test_loss&quot;,</span><br><span class="line">                            line=dict(color=&#x27;royalblue&#x27;, width=4)))</span><br><span class="line"></span><br><span class="line">    fig.update_layout(title=&#x27;The train and test data loss in different episodes&#x27;,</span><br><span class="line">                    xaxis_title=&#x27;Episodes&#x27;,</span><br><span class="line">                    yaxis_title=&#x27;Loss&#x27;)</span><br><span class="line"></span><br><span class="line">    fig.show()</span><br><span class="line"></span><br><span class="line"># plot draw the loss of each episode</span><br><span class="line">def plot_graph(self):</span><br><span class="line">    iteration = np.arange(0, self.episodes, step=1)</span><br><span class="line">    fig, ax = plt.subplots(figsize=(12, 8))</span><br><span class="line">    ax.set_title(&#x27;Train&#x27;)</span><br><span class="line">    ax.set_xlabel(&#x27;iteration&#x27;)</span><br><span class="line">    ax.set_ylabel(&#x27;loss&#x27;)</span><br><span class="line">    plt.plot(iteration, self.train_loss, &#x27;b&#x27;, label=&#x27;Train&#x27;)</span><br><span class="line">    plt.plot(iteration, self.test_loss, &#x27;r&#x27;, label=&#x27;Test&#x27;)</span><br><span class="line">    plt.legend()</span><br><span class="line">    plt.show()</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E8%B7%B5/" rel="tag"># 项目实践</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/03/26/IE-Race/" rel="prev" title="IE_Race">
+      <i class="fa fa-chevron-left"></i> IE_Race
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2024/03/30/LinearRegressionAndRandomGradientDescent/" rel="next" title="LinearRegressionAndRandomGradientDescent">
+      LinearRegressionAndRandomGradientDescent <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quite-Start"><span class="nav-number">1.</span> <span class="nav-text">Quite Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Main-class"><span class="nav-number">1.1.</span> <span class="nav-text">Main class</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Look-back"><span class="nav-number">2.</span> <span class="nav-text">Look back</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#loss-function"><span class="nav-number">2.1.</span> <span class="nav-text">loss function</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#By-the-way"><span class="nav-number">3.</span> <span class="nav-text">By the way</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Draw-things"><span class="nav-number">3.1.</span> <span class="nav-text">Draw things</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="XinzeXie"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">XinzeXie</p>
+  <div class="site-description" itemprop="description">Fellow your heart!</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/olivessora" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;olivessora" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:hastune_miku2007@outlook.com" title="E-Mail → mailto:hastune_miku2007@outlook.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://instagram.com/xinze.xie" title="Instagram → https:&#x2F;&#x2F;instagram.com&#x2F;xinze.xie" rel="noopener" target="_blank"><i class="fab fa-instagram fa-fw"></i>Instagram</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">XinzeXie</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+
+<!-- 网站运行时间的设置 -->
+<span id="timeDate">载入天数...</span>
+<span id="times">载入时分秒...</span>
+<script>
+    var now = new Date();
+    function createtime() {
+        var grt= new Date("03/01/2023 10:00:00"); //此处修改你的建站时间或者网站上线时间
+        now.setTime(now.getTime()+250);
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 ";
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒.";
+    }
+setInterval("createtime()",250);
+</script>
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
