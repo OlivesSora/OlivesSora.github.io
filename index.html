@@ -192,6 +192,222 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/04/25/Face-Identify/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="XinzeXie">
+      <meta itemprop="description" content="Fellow your heart!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Olives_Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/04/25/Face-Identify/" class="post-title-link" itemprop="url">FaceIdentifyBasedOnMTCNN</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-04-25 19:25:22 / 修改时间：19:50:09" itemprop="dateCreated datePublished" datetime="2024-04-25T19:25:22+08:00">2024-04-25</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Project/" itemprop="url" rel="index"><span itemprop="name">Project</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Project/ML/" itemprop="url" rel="index"><span itemprop="name">ML</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Quite-Start"><a href="#Quite-Start" class="headerlink" title="Quite Start"></a>Quite Start</h2><hr>
+<h3 id="Project-Target"><a href="#Project-Target" class="headerlink" title="Project Target"></a>Project Target</h3><pre><code>In this project, we focus on the human face identified. And in this part, we use three different Nets to achieve our goal.
+
+This project based on MTCNN to make our job works.
+</code></pre>
+<img src="images/ML-EX/MTCNN_Pipeline.png">
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/04/07/Brachistochrone/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="XinzeXie">
+      <meta itemprop="description" content="Fellow your heart!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Olives_Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/04/07/Brachistochrone/" class="post-title-link" itemprop="url">Brachistochrone</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-04-07 21:45:17 / 修改时间：22:16:13" itemprop="dateCreated datePublished" datetime="2024-04-07T21:45:17+08:00">2024-04-07</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Project/" itemprop="url" rel="index"><span itemprop="name">Project</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Project/OpticalControl/" itemprop="url" rel="index"><span itemprop="name">OpticalControl</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Quite-Start"><a href="#Quite-Start" class="headerlink" title="Quite Start"></a>Quite Start</h2><h3 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h3><p>The problem of the quickest descending line or shortcut is the first variational problem to appear in history and is a sign of the development of variational methods. The problem was proposed by John Bernoulli in 1696 in an open letter to his brother Jacob Bernoulli. The formulation of the problem is: let A and B are not in the same lead plane on the two points, in all the plane curve connecting A and B, to find a curve, so that only by gravity and the initial speed of the zero point from point A to point B along the curve of the shortest time required to move!</p>
+<hr>
+<h3 id="Demand"><a href="#Demand" class="headerlink" title="Demand"></a>Demand</h3><p>Using DP ways to solve this problem. Discrete this as grids, from the end to the start, calculate the faastest ways needs shortest times.</p>
+<hr>
+<h3 id="Mathematical-Model"><a href="#Mathematical-Model" class="headerlink" title="Mathematical Model"></a>Mathematical Model</h3><img src="/images/Optical_Control/Brachistochrone.png" title="Brachistochrone Question Model">
+Let the curve be y=y(x) with coordinates as shown in Fig. 1, the mass starts moving from point O, its velocity v is related to its longitudinal coordinate:<br>
+<br>
+<center>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+<mi>v</mi>
+<mo>=</mo>
+<msqrt>
+<mn>2</mn>
+<mi>g</mi>
+<mi>y</mi>
+</msqrt>
+</math>
+</center>
+<br>
+At the point (x, y) on the curve, the velocity of the mass point is
+<br>
+<br>
+<center>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <mi>v</mi>
+  <mo>=</mo>
+  <mfrac>
+    <mrow>
+      <mi>d</mi>
+      <mi>s</mi>
+    </mrow>
+    <mrow>
+      <mi>d</mi>
+      <mi>t</mi>
+    </mrow>
+  </mfrac>
+  <mo>=</mo>
+  <msqrt>
+    <mn>1</mn>
+    <mo>+</mo>
+    <msup>
+      <mi>y</mi>
+      <mrow>
+        <mi data-mjx-alternate="1" mathvariant="normal">′</mi>
+        <mn>2</mn>
+      </mrow>
+    </msup>
+  </msqrt>
+  <mfrac>
+    <mrow>
+      <mi>d</mi>
+      <mi>x</mi>
+    </mrow>
+    <mrow>
+      <mi>d</mi>
+      <mi>t</mi>
+    </mrow>
+  </mfrac>
+</math>
+</center>
+<br>
+where s denotes the arc length of the curve and t denotes the time.
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2024/04/07/Brachistochrone/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2024/03/30/PolicyGradient/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -884,14 +1100,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-count">10</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
